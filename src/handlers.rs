@@ -40,7 +40,7 @@ pub mod fooling_around {
     }
 }
 
-const IMAGE: &'static [u8] = include_bytes!("preview.png");
+const IMAGE: &'static [u8] = include_bytes!("./preview.png");
 
 pub async fn gen_image(hex_colour: String) -> Result<impl Reply, Rejection> {
     let colour = match hex_colour.parse::<HexColour>() {
@@ -48,7 +48,7 @@ pub async fn gen_image(hex_colour: String) -> Result<impl Reply, Rejection> {
         Err(HexColourParseError::Redirect(normalised)) => {
             return Ok(Response::builder()
                 .status(302)
-                .header("Location", format!("/colour/{}", normalised))
+                .header("Location", format!("/colour/{}/preview", normalised))
                 .body(vec![]));
         }
         Err(HexColourParseError::Invalid) => {
@@ -69,4 +69,22 @@ pub async fn gen_image(hex_colour: String) -> Result<impl Reply, Rejection> {
     Ok(Response::builder()
         .header("Content-Type", "image/png")
         .body(bytes))
+}
+
+const PAGE: &'static str = include_str!("./preview.html");
+
+pub async fn colour_preview(hex_colour: String) -> Result<impl Reply, Rejection> {
+    if let Err(error) = hex_colour.parse::<HexColour>() {
+        return match error {
+            HexColourParseError::Redirect(normalised) => Ok(Response::builder()
+                .status(302)
+                .header("Location", format!("/colour/{}/", normalised))
+                .body(String::new())),
+            HexColourParseError::Invalid => Err(custom(InvalidHexColour)),
+        };
+    }
+
+    Ok(Response::builder()
+        .header("Content-Type", "text/html; charset=utf-8")
+        .body(PAGE.replace("HEX", hex_colour.as_str())))
 }
