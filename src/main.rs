@@ -1,4 +1,5 @@
-use warp::Filter;
+mod handlers;
+mod filters;
 
 #[derive(Debug)]
 struct Hex(u32);
@@ -14,11 +15,9 @@ impl std::str::FromStr for Hex {
 
 #[tokio::main]
 async fn main() {
-    // GET /hello/warp => 200 OK with body "Hello, warp!"
-    let hello = warp::path!("colour" / Hex)
-        .map(|name| format!("Hello, {:?}!", name));
-
-    warp::serve(hello)
+    let routes = filters::routes();
+    
+    warp::serve(routes)
         .run(([127, 0, 0, 1], 3030))
         .await;
 }
