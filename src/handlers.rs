@@ -37,7 +37,11 @@ pub mod fooling_around {
 
 const IMAGE: &'static [u8] = include_bytes!("preview.png");
 
+
+
 pub async fn gen_image(hex_colour: String) -> Result<impl Reply, Rejection> {
+    //
+
     let mut bytes = IMAGE.to_vec();
 
     bytes[0x4b] = 0x12;

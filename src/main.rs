@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 mod filters;
 mod handlers;
+mod hex_colour;
 
 #[derive(Debug)]
 struct Hex(u32);
