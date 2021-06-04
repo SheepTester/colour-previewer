@@ -1,3 +1,5 @@
+use warp::{http::Response, reject::Rejection, Reply};
+
 pub mod fooling_around {
     use std::convert::Infallible;
     use warp::{
@@ -20,20 +22,6 @@ pub mod fooling_around {
 
     impl Reject for ThreeStringFailure {}
 
-    use std::fmt;
-    impl fmt::Display for ThreeStringFailure {
-        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-            match self {
-                ThreeStringFailure::TooLong => write!(f, "too long."),
-                ThreeStringFailure::TooShort => write!(f, "too short."),
-            }
-        }
-    }
-
-    #[derive(Debug)]
-    pub struct StrTooLong;
-    impl Reject for StrTooLong {}
-
     pub async fn three_string(string: String) -> Result<impl Reply, Rejection> {
         let length = string.len();
         if length == 3 {
@@ -42,8 +30,14 @@ pub mod fooling_around {
             Err(custom(ThreeStringFailure::TooShort))
         } else {
             Err(custom(ThreeStringFailure::TooLong))
-        } /*{
-              Err(StrTooLong)
-          }*/
+        }
     }
+}
+
+const IMAGE: &'static [u8] = include_bytes!("preview.png");
+
+pub async fn gen_image(hex_colour: String) -> Result<impl Reply, Rejection> {
+    Ok(Response::builder()
+        .header("Content-Type", "image/png")
+        .body(IMAGE))
 }
