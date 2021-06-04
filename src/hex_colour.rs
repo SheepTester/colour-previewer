@@ -1,6 +1,13 @@
 use std::str::FromStr;
+use warp::reject::Reject;
 
 pub struct HexColour(u8, u8, u8);
+
+impl HexColour {
+    pub fn channels(&self) -> [u8; 3] {
+        [self.0, self.1, self.2]
+    }
+}
 
 impl FromStr for HexColour {
     type Err = HexColourParseError;
@@ -37,3 +44,8 @@ pub enum HexColourParseError {
     Redirect(String),
     Invalid,
 }
+
+#[derive(Debug)]
+pub struct InvalidHexColour;
+
+impl Reject for InvalidHexColour {}
