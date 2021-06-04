@@ -1,9 +1,10 @@
-use warp::{Reply, http::Response};
-use std::convert::Infallible;
-
 pub mod fooling_around {
-    use warp::{Reply, http::Response, reject::{Reject, custom, Rejection}};
     use std::convert::Infallible;
+    use warp::{
+        http::Response,
+        reject::{custom, Reject, Rejection},
+        Reply,
+    };
 
     pub async fn return_int(int: u32) -> Result<impl Reply, Infallible> {
         Ok(Response::builder()
@@ -41,8 +42,8 @@ pub mod fooling_around {
             Err(custom(ThreeStringFailure::TooShort))
         } else {
             Err(custom(ThreeStringFailure::TooLong))
-        }/*{
-            Err(StrTooLong)
-        }*/
+        } /*{
+              Err(StrTooLong)
+          }*/
     }
 }

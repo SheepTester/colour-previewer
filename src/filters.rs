@@ -1,14 +1,13 @@
 use super::handlers;
-use warp::{path, get, Filter};
+use warp::Filter;
 
 pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
-    fooling_around::return_int()
-        .or(fooling_around::three_string())
+    fooling_around::return_int().or(fooling_around::three_string())
 }
 
 mod fooling_around {
     use super::handlers;
-    use warp::{path, get, Filter, Reply, Rejection};
+    use warp::{get, path, Filter, Rejection, Reply};
 
     pub fn return_int() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
         path!("hi" / u32)
@@ -21,5 +20,4 @@ mod fooling_around {
             .and(get())
             .and_then(handlers::fooling_around::three_string)
     }
-
 }
