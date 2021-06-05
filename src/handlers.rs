@@ -1,5 +1,6 @@
 use super::hex_colour::{HexColour, HexColourParseError, InvalidHexColour};
 use crc32fast::Hasher;
+use rand::random;
 use warp::{
     http::Response,
     reject::{custom, Rejection},
@@ -87,4 +88,16 @@ pub async fn colour_preview(hex_colour: String) -> Result<impl Reply, Rejection>
     Ok(Response::builder()
         .header("Content-Type", "text/html; charset=utf-8")
         .body(PAGE.replace("HEX", hex_colour.as_str())))
+}
+
+pub async fn random_colour() -> Result<impl Reply, Rejection> {
+    let colour = random::<(u8, u8, u8)>();
+
+    Ok(Response::builder()
+        .status(302)
+        .header(
+            "Location",
+            format!("/colour/{:02x}{:02x}{:02x}/", colour.0, colour.1, colour.2),
+        )
+        .body(vec![]))
 }

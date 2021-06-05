@@ -6,6 +6,7 @@ pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejecti
         .or(fooling_around::three_string())
         .or(gen_image())
         .or(colour_preview())
+        .or(random_colour())
         .or(static_files())
 }
 
@@ -36,6 +37,10 @@ fn colour_preview() -> impl Filter<Extract = impl Reply, Error = Rejection> + Cl
     path!("colour" / String)
         .and(get())
         .and_then(handlers::colour_preview)
+}
+
+fn random_colour() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
+    path::end().and(get()).and_then(handlers::random_colour)
 }
 
 fn static_files() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
