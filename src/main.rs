@@ -1,19 +1,12 @@
-use clap::{App, Arg};
+//! Starts the HTTP server based on the command line arguments.
+
 mod filters;
 mod handlers;
 mod hex_colour;
 
-#[derive(Debug)]
-struct Hex(u32);
+use clap::{App, Arg};
 
-impl std::str::FromStr for Hex {
-    type Err = std::num::ParseIntError;
-
-    fn from_str(src: &str) -> Result<Self, Self::Err> {
-        u32::from_str_radix(src, 16).map(|parsed| Hex(parsed))
-    }
-}
-
+/// Main
 #[tokio::main]
 async fn main() {
     let matches = App::new("Colour previewer")

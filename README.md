@@ -2,6 +2,8 @@
 
 An HTTP server that previews colours given their hex values.
 
+<img alt="Discord website preview of the home page" src="./docs/images/random.png" width="444.5">
+
 It's made in [Rust](https://www.rust-lang.org/). Install it, then do
 
 ```sh
@@ -46,10 +48,6 @@ The web page for #23CDB4.
 The server-side generated preview image for #DB497A.
 
 <img alt="Screenshot of the preview image for #DB497A" src="./docs/images/image.png" width="836.5">
-
-The website preview for the home page at the root.
-
-<img alt="Discord website preview of the home page" src="./docs/images/random.png" width="444.5">
 
 A screenshot of the scuffed Vim setup I used while making this.
 
