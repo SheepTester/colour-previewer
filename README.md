@@ -37,20 +37,20 @@ cargo run -- --help
 
 The website preview for #23CDB4.
 
-![Discord website preview of #23CDB4](./docs/images/preview.png)
+<img alt="Discord website preview of #23CDB4" src="./docs/images/preview.png" width="451.5">
 
 The web page for #23CDB4.
 
-![Screenshot of the web page about #23CDB4](./docs/images/page.png)
+<img alt="Screenshot of the web page about #23CDB4" src="./docs/images/page.png" width="768">
 
 The server-side generated preview image for #DB497A.
 
-![Screenshot of the preview image for #DB497A](./docs/images/image.png)
+<img alt="Screenshot of the preview image for #DB497A" src="./docs/images/image.png" width="836.5">
 
 The website preview for the home page at the root.
 
-![Discord website preview of the home page](./docs/images/random.png)
+<img alt="Discord website preview of the home page" src="./docs/images/random.png" width="444.5">
 
 A screenshot of the scuffed Vim setup I used while making this.
 
-![Screenshot of the Vim editor](./docs/images/vim.png)
+<img alt="Screenshot of the Vim editor" src="./docs/images/vim.png" width="1368">
